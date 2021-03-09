@@ -5,20 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
+    <!--added font css from fontawesome-->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <!--added bootstrap library-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
+    <!--header section to include name of page-->
     <div class="bg-dark">
-        <h1 class="text-center mb-2 p-2 text-light">Weather Dashboard</h1>
+        <h1 class="text-center mb-2 p-2 text-light">Weather Forecast</h1>
     </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
                 <form>
                     <div class="input-group m-2 pr-3">
+                        <!--search box-->
                         <input type="text" class="form-control" id="citySearchInput" placeholder="Search for a City">
                         <div class="input-group-append">
+                        <!--button to search city-->
                         <button class="btn btn-outline-secondary" type="submit" id="citySearchButton"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
