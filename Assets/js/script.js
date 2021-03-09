@@ -2,7 +2,7 @@
 // add functionality to pull current location weather if no current city selected?
 
 var cityList = [];
-var id = "5859ec0dbfd9ff0a36abca355158892e";
+var id = "c52ebbd0a3f56c59ee405c95485eb3a0";
 
 // stores cityList in localStorage
 function storeCities() {
