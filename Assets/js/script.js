@@ -8,41 +8,36 @@ var id = "c52ebbd0a3f56c59ee405c95485eb3a0";
 function storeCities() {
     localStorage.setItem("cities", JSON.stringify(cityList));
 }
-// adds last searched city to list-group as button for user to select city
+// adds last searched city name to list-group as button for user to select city
 function createCityList(){
     $(".cityList").empty();
     cityList.forEach(function(city) {
         $(".cityList").prepend($(`<button class="list-group-item list-group-item-action cityButton" data-city="${city}">${city}</button>`));
     })
 }
-
 // loads cityList from local storage and calls api to get data for last searched city if it exists
 function init() {
     var storedCities = JSON.parse(localStorage.getItem("cities"));
-
     if (storedCities !== null) {
         cityList = storedCities;
     }
-
     createCityList();
-
     if (cityList) {
         var thisCity = cityList[cityList.length - 1]
         getCurrentWeather(thisCity, id);
         getForecast(thisCity, id);
     }
 }
-
 // gets current forecast for selected city and calls uv index function
 function getCurrentWeather(thisCity, id) {
     var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${thisCity}&units=imperial&appid=${id}`;
     var cityLat;
     var cityLong;
-
     $.ajax({
         url: weatherURL,
         method: "GET"
     }).then(function (data) {
+        console.log(data)
         $(".cityToday").append(
             `<div class="row ml-1">
                 <h3 class="mr-3">${data.name} (${(new Date(1000 * data.dt).getUTCMonth()) + 1}/${(new Date(1000 * data.dt).getUTCDate()) - 1}/${new Date(1000 * data.dt).getUTCFullYear()})</h3>
@@ -56,13 +51,10 @@ function getCurrentWeather(thisCity, id) {
         cityLong = data.coord.lon;
         getUVI(id, cityLat, cityLong);
     })
-
 }
-
-// gets 5 day forecast for selected city
+// gets the 5-day forecast for selected city
 function getForecast(thisCity, id) {
     var forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${thisCity}&units=imperial&appid=${id}`;
-
     $.ajax({
         url: forecastURL,
         method: "GET"
@@ -84,47 +76,50 @@ function getForecast(thisCity, id) {
                 );
             }
         }
-
     })
 }
-
-// called within getCurrentWeather() to get uv index for selected city
+// call in the getCurrentWeather() to get the uv index for selected city
 function getUVI(id, cityLat, cityLong) {
     var uvURL = `https://api.openweathermap.org/data/2.5/uvi?lat=${cityLat}&lon=${cityLong}&appid=${id}`;
-
+    var color = "secondary"
     $.ajax({
         url: uvURL,
         method: "GET"
     }).then(function (data) {
-        $(".cityToday").append(`<p>UV Index: <span class="badge badge-danger p-2">${data.value}</span></p>`);
-    })
+        if (data.value >= 6 ){color = "danger"}
+        else if (data.value >= 3 ){color = "warning"}
+        else {color = "success"}
+    $(".cityToday").append(`<p>UV Index: <span class="badge badge-${color} p-2">${data.value}</span></p>`);
+            })
 }
-
-// main function that clears divs and calls current and 5-day forecasts for city
+// function that clears data + calls both the current and 5-day forecasts for selected city
 function displayCityWeather() {
     var thisCity = $(this).attr("data-city");
-
     $(".cityToday").empty();
     getCurrentWeather(thisCity, id);
-
     $(".forecast").empty();
     getForecast(thisCity, id);
-    
 }
-
-// calls main on page load function
+// calls for the main page load function
 init();
-
-// submit event that loads new data
+// submit the event that loads new data on the page
 $("form").on("submit", function(event) {
     event.preventDefault();
-    console.log("im here!")
+    console.log("it works!")
     var newCity = $("#citySearchInput").val().trim();
+        if (newCity !== "" ) {
     cityList.push(newCity);
+    console.log(newCity);
     createCityList();
     storeCities();
     $("#citySearchInput").val("");
+    // if (cityList) {
+    //     var thisCity = cityList[cityList.length - 1]
+    //     getCurrentWeather(thisCity, id);
+    //     getForecast(thisCity, id);
+    // }
+    location.reload();
+        }
 })
-
-// click event that calls displayCityWeather()
+// click event to displayCityWeather()
 $(".cityList").on("click", ".cityButton", displayCityWeather);

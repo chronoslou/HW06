@@ -17,18 +17,12 @@ The app will perfom the following logic:
 * The app will accept traveler's queries to search for cities. 
 * Upon search, the app will provide results based on queries 
 * The app's search result will presented traveler's with current and future conditions for that city 
-* The app will allow the traverler to added to the search history
-* I view current weather conditions for that city
-
-
-REWRITE- TO DO
-THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-WHEN I view the UV index
-THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-WHEN I view future weather conditions for that city
-THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity
-WHEN I click on a city in the search history
-THEN I am again presented with current and future conditions for that city
+* The app will allow the traverler to add to the search history
+* The app will display current weather conditions for that city
+* The app will show city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
+* The UV index will show a color that indicates whether the conditions are favorable, moderate, or severe
+* The app will show the predicted forecast for 5 days and will display the date, an icon representation of weather conditions, the temperature, and the humidity
+* When the traveler clicks on a city in the search history then they are presented with current and future conditions for that city
 
 
 ## Preview of App 
